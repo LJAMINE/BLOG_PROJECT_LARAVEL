@@ -30,10 +30,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 
 Route::get('/form', [CategoriesController::class, 'index'])->name('articles.form');
 
 Route::post('/articles/store', [ArticleController::class, 'store'])->name('articles.store');
+
+Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+
+Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
