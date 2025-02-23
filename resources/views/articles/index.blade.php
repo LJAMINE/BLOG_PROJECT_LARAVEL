@@ -2,10 +2,16 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article Management</title>
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js') 
+
+
 </head>
 
 <body class="bg-gray-100">
@@ -27,11 +33,11 @@
                 <tr>
                     <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Title</th>
                     <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Content</th>
-                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Status</th>
                     <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Created At</th>
                     <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Category</th>
                     <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">User</th>
                     <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">Actions</th>
+                    <th class="py-3 px-6 text-left text-sm font-medium text-gray-600">status</th>
                 </tr>
             </thead>
             <tbody class="text-sm text-gray-700">
@@ -39,11 +45,11 @@
                 <tr class="border-b hover:bg-gray-50">
                     <td class="py-4 px-6">{{ $article->title }}</td>
                     <td class="py-4 px-6">{{ $article->content }}</td>
-                    <td class="py-4 px-6">{{ $article->status }}</td>
                     <td class="py-4 px-6">{{ $article->created_at }}</td>
                     <td class="py-4 px-6">{{ $article->category->name }}</td>
                     <td class="py-4 px-6">{{ $article->user->name }}</td>
                     <td class="py-4 px-6 flex items-center space-x-2">
+                        
                         <!-- Delete Form -->
                         <form action="{{ route('articles.destroy', $article->id) }}" method="POST">
                             @csrf
@@ -58,13 +64,24 @@
                             Edit
                         </a>
                     </td>
+
+                    <td>
+                        <button data-id="{{ $article->id }}" class="toggle-status px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-200">
+                            {{ $article->status }}
+                        </button>
+                    </td>
+                    
                 </tr>
                 @endforeach
             </tbody>
+   
+
         </table>
 
     </div>
-
+{{--pagination--}}
+    
+    {{ $articles->links() }}
 </body>
 
 </html>

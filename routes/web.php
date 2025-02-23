@@ -43,3 +43,6 @@ Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->nam
 Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
 
 Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+
+
+Route::patch('/articles/{article}/toggle-status', [ArticleController::class, 'toggleStatus'])->name('articles.toggle-status');

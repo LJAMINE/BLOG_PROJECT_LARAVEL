@@ -18,7 +18,7 @@
                     <h3>{{ $categorie->name }}</h3>
                 </div>
                 </a>
-                
+
             </li>
         @endforeach
 

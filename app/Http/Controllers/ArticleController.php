@@ -11,7 +11,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::orderBy('created_at', 'desc')->get();
+        $articles = Article::orderBy('created_at', 'asc')->paginate(3);
         return view('articles.index', ['articles' => $articles]);
     }
 
@@ -68,4 +68,15 @@ class ArticleController extends Controller
         return redirect()->route('articles.index')->with('success', 'Article updated successfully!');
 
     }
+
+    public function toggleStatus(Article $article)
+{
+    $article->status = $article->status === 'unpublished' ? 'published' : 'unpublished';
+    $article->save();
+
+    return response()->json([
+        'success' => true,
+        'new_status' => $article->status
+    ]);
+}
 }
